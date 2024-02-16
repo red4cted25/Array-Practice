@@ -2,26 +2,64 @@ const data = "()(((()())))()))()(())(()()()))))())(()((((()()()(()))())()(((((((
 
 // Scenario 1 - Normal
 const coolio = () => {
-    let newData = data.split('');
-    let west = 0;
-    let east = 0;
+    newData = data.split('');
+    let position = 0;
     for(let i = 0; i < newData.length; i++){
         if(newData[i] == "("){
-            west += 1;
+            position--;
         } else {
-            east += 1;
+            position++;
         }
     }
-    let distance = west - east;
-    if(distance > 0){
-        return `The train is ${distance} stations west of you.`;
-    } else if(distance < 0) {
-        distance *= -1;
-        return `The train is ${distance} stations east of you`;
+    if(position > 0){
+        return `The train is ${position} stations east of you.`;
+    } else if(position < 0) {
+        position *= -1;
+        return `The train is ${position} stations west of you`;
     } else {
         return "You are at the station!";
     }
 }
 console.log(coolio());
 
-// Scenario 2 -
+// Scenario 2 - Broken West
+const coolio2 = () => {
+    newData = data.split('');
+    let position = 0;
+    for(let i = 0; i < newData.length; i++){
+        if(newData[i] == ")"){
+            position++;
+        } else {
+            if(position > 0){position--;}else{continue;}
+        }
+    }
+    if(position > 0){
+        return `The train is ${position} stations east of you`;
+    } else {
+        return "You are at the station!";
+    }
+}
+console.log(coolio2());
+
+// Scenario 3 - Double Double Toil and Trouble
+const coolio3 = () => {
+    newData = data.split('');
+    let position = 0;
+    for(let i = 0; i < newData.length; i++) {
+        if(newData[i] == newData[i + 1]){continue;}
+        if(newData[i] == "("){
+            position--;
+        } else {
+            ProcessingInstruction++;
+        }
+    }
+    if(position > 0){
+        return `The train is ${position} stations east of you.`;
+    } else if(position < 0) {
+        position *= -1;
+        return `The train is ${position} stations west of you`;
+    } else {
+        return "You are at the station!";
+    }
+}
+console.log(coolio3());
